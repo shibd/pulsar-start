@@ -1,0 +1,15 @@
+version: '3'
+networks:
+  pulsar:
+    driver: bridge
+services:
+  broker:
+    image: apachepulsar/pulsar:latest
+    container_name: pulsar-standalone
+    restart: on-failure
+    environment:
+     - PULSAR_PREFIX_acknowledgmentAtBatchIndexLevelEnabled=true
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    command: bash -c "echo acknowledgmentAtBatchIndexLevelEnabled=true >> /pulsar/conf/standalone.conf && /pulsar/bin/pulsar standalone"
